@@ -46,46 +46,23 @@ onMounted(async () => {
 	clickResult.value = +data.count;
 });
 
-const makeClick = async () => {
-	// Make touch
-	const resp = await touchMeApi.addTouch();
-	if (resp.status != 200) {
-		showClickWarn.value = true;
-		return;
-	}
-	const data = resp.data;
-	if (!data || !data.count) {
-		showClickWarn.value = true;
-		return;
-	}
-	clickResult.value = +data.count;
-};
 
-const location = document.location.origin + '/docs/';
+
+
 </script>
 
 <template>
 	<div>
-		<h1 class="text-h1">
-			Привет<span v-if="profileStore.full_name">, {{ profileStore.full_name }}</span
-			>!
-		</h1>
-		<p v-if="!profileStore.full_name">
-			Не удалось получить твое имя из
-			<a href="https://api.profcomff.com/?urls.primaryName=userdata">Userdata API</a>
-			=(
-		</p>
-		<p>Твой id: {{ profileStore.id }}</p>
-		<div>
-			<button @click="makeClick">Нажми чтобы увеличить каунтер</button>
-			<h2 v-if="clickResult">
-				В сумме ты кликнул эту кнопку <span>{{ clickResult }}</span> раз
-			</h2>
-		</div>
-		<div>
-			<p>
-				Документация к этому коду находится по адресу <a href="/docs/">{{ location }}</a>
+		<p>Id: {{ profileStore.id }}</p>
+		<p class="text-h1">
+			Имя Фамилия<span v-if="profileStore.full_name">: {{ profileStore.full_name }}</span
+			>
 			</p>
-		</div>
+		<p v-if="!profileStore.full_name">
+			Не удалось 
+			<a href="https://api.profcomff.com/?urls.primaryName=userdata"></a>
+		</p>
+		
+		<p>Группа: {{profileStore.groups}}</p>
 	</div>
 </template>
